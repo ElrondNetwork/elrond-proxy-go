@@ -24,6 +24,7 @@ type FacadeArgs struct {
 	TransactionProcessor         facade.TransactionProcessor
 	ValidatorStatisticsProcessor facade.ValidatorStatisticsProcessor
 	ProofProcessor               facade.ProofProcessor
+	DnsProcessor                 facade.DnsProcessor
 	PubKeyConverter              core.PubkeyConverter
 }
 
@@ -102,6 +103,7 @@ func createVersionV1_0Facade(facadeArgs FacadeArgs) (*facadeVersions.ElrondProxy
 		TransactionProcessor:         facadeArgs.TransactionProcessor,
 		ValidatorStatisticsProcessor: facadeArgs.ValidatorStatisticsProcessor,
 		ProofProcessor:               facadeArgs.ProofProcessor,
+		DnsProcessor:                 facadeArgs.DnsProcessor,
 		PubKeyConverter:              facadeArgs.PubKeyConverter,
 	}
 
@@ -157,6 +159,7 @@ func createVersionV_nextFacade(facadeArgs FacadeArgs) (data.FacadeHandler, error
 		ScQueryProcessor:             facadeArgs.ScQueryProcessor,
 		TransactionProcessor:         facadeArgs.TransactionProcessor,
 		ValidatorStatisticsProcessor: facadeArgs.ValidatorStatisticsProcessor,
+		DnsProcessor:                 facadeArgs.DnsProcessor,
 		PubKeyConverter:              facadeArgs.PubKeyConverter,
 	}
 
@@ -192,6 +195,7 @@ func createVersionedFacade(args FacadeArgs) (data.FacadeHandler, error) {
 		args.NodeStatusProcessor,
 		args.BlockProcessor,
 		args.ProofProcessor,
+		args.DnsProcessor,
 		args.PubKeyConverter,
 	)
 }

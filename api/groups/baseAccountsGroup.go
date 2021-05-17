@@ -28,17 +28,59 @@ func NewAccountsGroup(facadeHandler data.FacadeHandler) (*accountsGroup, error) 
 	}
 
 	baseRoutesHandlers := []*data.EndpointHandlerData{
-		{Path: "/:address", Handler: ag.getAccount, Method: http.MethodGet},
-		{Path: "/:address/balance", Handler: ag.getBalance, Method: http.MethodGet},
-		{Path: "/:address/username", Handler: ag.getUsername, Method: http.MethodGet},
-		{Path: "/:address/nonce", Handler: ag.getNonce, Method: http.MethodGet},
-		{Path: "/:address/shard", Handler: ag.getShard, Method: http.MethodGet},
-		{Path: "/:address/transactions", Handler: ag.getTransactions, Method: http.MethodGet},
-		{Path: "/:address/keys", Handler: ag.getKeyValuePairs, Method: http.MethodGet},
-		{Path: "/:address/key/:key", Handler: ag.getValueForKey, Method: http.MethodGet},
-		{Path: "/:address/esdt", Handler: ag.getESDTTokens, Method: http.MethodGet},
-		{Path: "/:address/esdt/:tokenIdentifier", Handler: ag.getESDTTokenData, Method: http.MethodGet},
-		{Path: "/:address/nft/:tokenIdentifier/nonce/:nonce", Handler: ag.getESDTNftTokenData, Method: http.MethodGet},
+		{
+			Path:    "/:address",
+			Handler: ag.getAccount,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/balance",
+			Handler: ag.getBalance,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/username",
+			Handler: ag.getUsername,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/nonce",
+			Handler: ag.getNonce,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/shard",
+			Handler: ag.getShard,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/transactions",
+			Handler: ag.getTransactions,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/key/:key",
+			Handler: ag.getValueForKey,
+			Method:  http.MethodGet,
+		},
+		{
+			Path: "/:address/keys",
+			Handler: ag.getKeyValuePairs,
+			Method: http.MethodGet},
+		{
+			Path:    "/:address/esdt",
+			Handler: ag.getESDTTokens,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:address/esdt/:tokenIdentifier",
+			Handler: ag.getESDTTokenData,
+			Method:  http.MethodGet,
+		},
+		{
+			Path: "/:address/nft/:tokenIdentifier/nonce/:nonce",
+			Handler: ag.getESDTNftTokenData, Method: http.MethodGet,
+		},
 	}
 	ag.baseGroup.endpoints = baseRoutesHandlers
 

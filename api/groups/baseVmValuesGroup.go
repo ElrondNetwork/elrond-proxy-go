@@ -40,10 +40,26 @@ func NewVmValuesGroup(facadeHandler data.FacadeHandler) (*vmValuesGroup, error) 
 	}
 
 	baseRoutesHandlers := []*data.EndpointHandlerData{
-		{Path: "/hex", Handler: vvg.getHex, Method: http.MethodPost},
-		{Path: "/string", Handler: vvg.getString, Method: http.MethodPost},
-		{Path: "/int", Handler: vvg.getInt, Method: http.MethodPost},
-		{Path: "/query", Handler: vvg.executeQuery, Method: http.MethodPost},
+		{
+			Path:    "/hex",
+			Handler: vvg.getHex,
+			Method:  http.MethodPost,
+		},
+		{
+			Path:    "/string",
+			Handler: vvg.getString,
+			Method:  http.MethodPost,
+		},
+		{
+			Path:    "/int",
+			Handler: vvg.getInt,
+			Method:  http.MethodPost,
+		},
+		{
+			Path:    "/query",
+			Handler: vvg.executeQuery,
+			Method:  http.MethodPost,
+		},
 	}
 	vvg.baseGroup.endpoints = baseRoutesHandlers
 

@@ -490,6 +490,11 @@ func createVersionsRegistry(
 		htbProc.StartCacheUpdate()
 	}
 
+	dnsProc, err := process.NewDnsProcessor(pubKeyConverter)
+	if err != nil {
+		return nil, err
+	}
+
 	valStatsCacher := cache.NewValidatorsStatsMemoryCacher()
 	cacheValidity = time.Duration(cfg.GeneralSettings.ValStatsCacheValidityDurationSec) * time.Second
 
@@ -533,6 +538,7 @@ func createVersionsRegistry(
 		TransactionProcessor:         txProc,
 		ValidatorStatisticsProcessor: valStatsProc,
 		ProofProcessor:               proofProc,
+		DnsProcessor:                 dnsProc,
 		PubKeyConverter:              pubKeyConverter,
 	}
 

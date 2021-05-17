@@ -35,6 +35,7 @@ type ElrondProxyFacade struct {
 	nodeStatusProc NodeStatusProcessor
 	blockProc      BlockProcessor
 	proofProc      ProofProcessor
+	dnsProc        DnsProcessor
 
 	pubKeyConverter core.PubkeyConverter
 }
@@ -51,6 +52,7 @@ func NewElrondProxyFacade(
 	nodeStatusProc NodeStatusProcessor,
 	blockProc BlockProcessor,
 	proofProc ProofProcessor,
+	dnsProc DnsProcessor,
 	pubKeyConverter core.PubkeyConverter,
 ) (*ElrondProxyFacade, error) {
 	if actionsProc == nil {
@@ -83,6 +85,9 @@ func NewElrondProxyFacade(
 	if proofProc == nil {
 		return nil, ErrNilProofProcessor
 	}
+	if dnsProc == nil {
+		return nil, ErrNilDnsProcessor
+	}
 
 	return &ElrondProxyFacade{
 		actionsProc:     actionsProc,
@@ -95,6 +100,7 @@ func NewElrondProxyFacade(
 		nodeStatusProc:  nodeStatusProc,
 		blockProc:       blockProc,
 		proofProc:       proofProc,
+		dnsProc:         dnsProc,
 		pubKeyConverter: pubKeyConverter,
 	}, nil
 }
@@ -137,6 +143,16 @@ func (epf *ElrondProxyFacade) GetESDTNftTokenData(address string, key string, no
 // GetAllESDTTokens returns all the ESDT tokens for a given address
 func (epf *ElrondProxyFacade) GetAllESDTTokens(address string) (*data.GenericAPIResponse, error) {
 	return epf.accountProc.GetAllESDTTokens(address)
+}
+
+// GetDnsAddresses returns all the DNS addresses in a sorted order
+func (epf *ElrondProxyFacade) GetDnsAddresses() ([]string, error) {
+	return epf.dnsProc.GetDnsAddresses()
+}
+
+// GetDnsAddressForUsername returns the dns address for the given username
+func (epf *ElrondProxyFacade) GetDnsAddressForUsername(username string) (string, error) {
+	return epf.dnsProc.GetDnsAddressForUsername(username)
 }
 
 // SendTransaction should send the transaction to the correct observer

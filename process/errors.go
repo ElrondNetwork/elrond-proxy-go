@@ -91,3 +91,12 @@ var ErrNoObserverAvailable = errors.New("no observer available")
 
 // ErrInvalidTokenType signals that the provided token type is invalid
 var ErrInvalidTokenType = errors.New("invalid token type")
+
+// ErrHashedUsernameBelowLimit signals that the hash of the provided username is below limit
+var ErrHashedUsernameBelowLimit = errors.New("hashed username is below the length limit")
+
+// ErrInvalidUsernameLength signals that a username with an invalid length has been provided
+var ErrInvalidUsernameLength = errors.New("invalid username length")
+
+// ErrInvalidUsername signals that an invalid username has been provided
+var ErrInvalidUsername = errors.New("invalid username")

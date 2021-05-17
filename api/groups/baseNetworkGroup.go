@@ -27,16 +27,56 @@ func NewNetworkGroup(facadeHandler data.FacadeHandler) (*networkGroup, error) {
 	}
 
 	baseRoutesHandlers := []*data.EndpointHandlerData{
-		{Path: "/status/:shard", Handler: ng.getNetworkStatusData, Method: http.MethodGet},
-		{Path: "/config", Handler: ng.getNetworkConfigData, Method: http.MethodGet},
-		{Path: "/economics", Handler: ng.getEconomicsData, Method: http.MethodGet},
-		{Path: "/esdts", Handler: ng.getEsdts, Method: http.MethodGet},
-		{Path: "/esdt/fungible-tokens", Handler: ng.getEsdtHandlerFunc(data.FungibleTokens), Method: http.MethodGet},
-		{Path: "/esdt/semi-fungible-tokens", Handler: ng.getEsdtHandlerFunc(data.SemiFungibleTokens), Method: http.MethodGet},
-		{Path: "/esdt/non-fungible-tokens", Handler: ng.getEsdtHandlerFunc(data.NonFungibleTokens), Method: http.MethodGet},
-		{Path: "/enable-epochs", Handler: ng.getEnableEpochs, Method: http.MethodGet},
-		{Path: "/direct-staked-info", Handler: ng.getDirectStakedInfo, Method: http.MethodGet},
-		{Path: "/delegated-info", Handler: ng.getDelegatedInfo, Method: http.MethodGet},
+		{
+			Path:    "/status/:shard",
+			Handler: ng.getNetworkStatusData,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/config",
+			Handler: ng.getNetworkConfigData,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/economics",
+			Handler: ng.getEconomicsData,
+			Method:  http.MethodGet,
+		},
+		{
+			Path: "/esdts",
+			Handler: ng.getEsdts,
+			Method: http.MethodGet,
+		},
+		{
+			Path: "/esdt/fungible-tokens",
+			Handler: ng.getEsdtHandlerFunc(data.FungibleTokens),
+			Method: http.MethodGet,
+		},
+		{
+			Path: "/esdt/semi-fungible-tokens",
+			Handler: ng.getEsdtHandlerFunc(data.SemiFungibleTokens),
+			Method: http.MethodGet,
+		},
+		{
+			Path: "/esdt/non-fungible-tokens",
+			Handler: ng.getEsdtHandlerFunc(data.NonFungibleTokens),
+			Method: http.MethodGet,
+		},
+		{
+			Path: "/enable-epochs",
+			Handler: ng.getEnableEpochs,
+			Method: http.MethodGet,
+		},
+		{
+			Path: "/direct-staked-info",
+			Handler: ng.getDirectStakedInfo,
+			Method: http.MethodGet,
+		},
+		{
+			Path: "/delegated-info",
+			Handler: ng.getDelegatedInfo,
+			Method: http.MethodGet,
+		},
 	}
 	ng.baseGroup.endpoints = baseRoutesHandlers
 

@@ -30,8 +30,16 @@ func NewBlockGroup(facadeHandler data.FacadeHandler) (*blockGroup, error) {
 	}
 
 	baseRoutesHandlers := []*data.EndpointHandlerData{
-		{Path: "/:shard/by-nonce/:nonce", Handler: bg.byNonceHandler, Method: http.MethodGet},
-		{Path: "/:shard/by-hash/:hash", Handler: bg.byHashHandler, Method: http.MethodGet},
+		{
+			Path:    "/:shard/by-nonce/:nonce",
+			Handler: bg.byNonceHandler,
+			Method:  http.MethodGet,
+		},
+		{
+			Path:    "/:shard/by-hash/:hash",
+			Handler: bg.byHashHandler,
+			Method:  http.MethodGet,
+		},
 	}
 	bg.baseGroup.endpoints = baseRoutesHandlers
 

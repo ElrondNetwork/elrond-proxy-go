@@ -26,6 +26,12 @@ type AccountProcessor interface {
 	GetESDTNftTokenData(address string, key string, nonce uint64) (*data.GenericAPIResponse, error)
 }
 
+// DnsProcessor defines what a dns processor should do
+type DnsProcessor interface {
+	GetDnsAddresses() ([]string, error)
+	GetDnsAddressForUsername(username string) (string, error)
+}
+
 // TransactionProcessor defines what a transaction request processor should do
 type TransactionProcessor interface {
 	SendTransaction(tx *data.Transaction) (int, string, error)

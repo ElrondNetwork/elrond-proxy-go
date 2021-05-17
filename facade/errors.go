@@ -31,3 +31,6 @@ var ErrNilBlockProcessor = errors.New("nil block processor provided")
 
 // ErrNilProofProcessor signals that a nil proof processor has been provided
 var ErrNilProofProcessor = errors.New("nil proof processor provided")
+
+// ErrNilDnsProcessor signals that a nil dns processor has been provided
+var ErrNilDnsProcessor = errors.New("nil dns processor provided")
