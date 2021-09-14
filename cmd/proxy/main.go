@@ -127,6 +127,10 @@ VERSION:
 		Name:  "rosetta",
 		Usage: "Starts the proxy as a rosetta server",
 	}
+	rosettaOffline = cli.BoolFlag{
+		Name:  "offline",
+		Usage: "Starts rosetta server offline",
+	}
 
 	// logLevel defines the logger level
 	logLevel = cli.StringFlag{
@@ -170,6 +174,7 @@ func main() {
 		walletKeyPemFile,
 		testHttpServerEn,
 		startAsRosetta,
+		rosettaOffline,
 		logLevel,
 		logSaveFile,
 		workingDirectory,
@@ -487,9 +492,6 @@ func createVersionsRegistry(
 	if err != nil {
 		return nil, err
 	}
-	if !isRosettaModeEnabled {
-		htbProc.StartCacheUpdate()
-	}
 
 	valStatsCacher := cache.NewValidatorsStatsMemoryCacher()
 	cacheValidity = time.Duration(cfg.GeneralSettings.ValStatsCacheValidityDurationSec) * time.Second
@@ -497,9 +499,6 @@ func createVersionsRegistry(
 	valStatsProc, err := process.NewValidatorStatisticsProcessor(bp, valStatsCacher, cacheValidity)
 	if err != nil {
 		return nil, err
-	}
-	if !isRosettaModeEnabled {
-		valStatsProc.StartCacheUpdate()
 	}
 
 	economicMetricsCacher := cache.NewGenericApiResponseMemoryCacher()
@@ -509,7 +508,10 @@ func createVersionsRegistry(
 	if err != nil {
 		return nil, err
 	}
+
 	if !isRosettaModeEnabled {
+		htbProc.StartCacheUpdate()
+		valStatsProc.StartCacheUpdate()
 		nodeStatusProc.StartCacheUpdate()
 	}
 
@@ -594,11 +596,12 @@ func startWebServer(
 	port := generalConfig.GeneralSettings.ServerPort
 	asRosetta := cliContext.GlobalBool(startAsRosetta.Name)
 	if asRosetta {
+		isRosettaOffline := cliContext.GlobalBool(rosettaOffline.Name)
 		facades, err := versionsRegistry.GetAllVersions()
 		if err != nil {
 			return nil, err
 		}
-		httpServer, err = rosetta.CreateServer(facades["v1.0"].Facade, generalConfig, port)
+		httpServer, err = rosetta.CreateServer(facades["v1.0"].Facade, generalConfig, port, isRosettaOffline)
 	} else {
 		if generalConfig.GeneralSettings.RateLimitWindowDurationSeconds <= 0 {
 			return nil, fmt.Errorf("invalid value %d for RateLimitWindowDurationSeconds. It must be greater "+

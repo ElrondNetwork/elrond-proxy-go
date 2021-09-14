@@ -20,7 +20,10 @@ if [[ -f ~/.proxyDockerTag ]]; then
 fi
 
 case "$1" in
-
+'offline')
+OFFLINE_ROSETTA_SERVER_PORT=$2
+docker run -p "${OFFLINE_ROSETTA_SERVER_PORT}":8079 elrondnetwork/"${PROXY_TAG}" -offline
+;;
 'mainnet')
 
 #Create the folder structure for the observer stack
